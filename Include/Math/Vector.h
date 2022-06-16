@@ -54,7 +54,7 @@ namespace Quartz
 		}
 
 		/** Get the magnitude this vector */
-		constexpr IntType Magnitude() const
+		IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
@@ -66,21 +66,21 @@ namespace Quartz
 		}
 
 		/** Normalize this vector */
-		constexpr Vector2& Normalize()
+		Vector2& Normalize()
 		{
-			IntType fastInv = FastInvsereSquare(MagnitudeSquared());
-			this->x *= fastInv;
-			this->y *= fastInv;
+			IntType mag = Magnitude();
+			this->x *= mag;
+			this->y *= mag;
 			return *this;
 		}
 
 		/** Get the normalized vector */
-		constexpr Vector2 Normalized() const
+		Vector2 Normalized() const
 		{
 			Vector2 result;
-			IntType fastInv = FastInvsereSquare(MagnitudeSquared());
-			result.x = x * fastInv;
-			result.y = y * fastInv;
+			IntType mag = Magnitude();
+			result.x = x * mag;
+			result.y = y * mag;
 			return result;
 		}
 
@@ -284,7 +284,7 @@ namespace Quartz
 		}
 
 		/** Get the magnitude this vector */
-		constexpr IntType Magnitude() const
+		IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
@@ -296,23 +296,23 @@ namespace Quartz
 		}
 
 		/** Normalize this vector */
-		constexpr Vector3& Normalize()
+		Vector3& Normalize()
 		{
-			IntType fastInv = FastInvsereSquare(MagnitudeSquared());
-			this->x *= fastInv;
-			this->y *= fastInv;
-			this->z *= fastInv;
+			IntType mag = Magnitude();
+			this->x *= mag
+			this->y *= mag;
+			this->z *= mag;
 			return *this;
 		}
 
 		/** Get the normalized vector */
-		constexpr Vector3 Normalized() const
+		Vector3 Normalized() const
 		{
 			Vector3 result;
-			IntType fastInv = FastInvsereSquare(MagnitudeSquared());
-			result.x = x * fastInv;
-			result.y = y * fastInv;
-			result.z = z * fastInv;
+			IntType mag = Magnitude();
+			result.x = x * mag;
+			result.y = y * mag;
+			result.z = z * mag;
 			return result;
 		}
 
@@ -557,11 +557,11 @@ namespace Quartz
 		/** Normalize this vector */
 		Vector4& Normalize()
 		{
-			IntType fastInv = FastInvsereSquare(MagnitudeSquared());
-			this->x *= fastInv;
-			this->y *= fastInv;
-			this->z *= fastInv;
-			this->w *= fastInv;
+			IntType mag = Magnitude();
+			this->x *= mag;
+			this->y *= mag;
+			this->z *= mag;
+			this->w *= mag;
 			return *this;
 		}
 
@@ -569,11 +569,11 @@ namespace Quartz
 		Vector4 Normalized() const
 		{
 			Vector4 result;
-			IntType fastInv = FastInvsereSquare(MagnitudeSquared());
-			result.x = x * fastInv;
-			result.y = y * fastInv;
-			result.z = z * fastInv;
-			result.w = w * fastInv;
+			IntType mag = Magnitude();
+			result.x = x * mag;
+			result.y = y * mag;
+			result.z = z * mag;
+			result.w = w * mag;
 			return result;
 		}
 
