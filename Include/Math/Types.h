@@ -7,7 +7,7 @@
 namespace Quartz
 {
 	/*====================================================
-	|	               QUARTZMATH TYPES                  |
+	|                  QUARTZMATH TYPES                  |
 	=====================================================*/
 
 #if defined(_MSC_VER)

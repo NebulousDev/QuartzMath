@@ -6,7 +6,7 @@
 namespace Quartz
 {
 	/*====================================================
-	|	             QUARTZMATH VECTOR2                  |
+	|                QUARTZMATH VECTOR2                  |
 	=====================================================*/
 
 	template<typename IntType>
@@ -230,7 +230,7 @@ namespace Quartz
 	typedef Vector2<double>	Vec2d;
 
 	/*====================================================
-	|	             QUARTZMATH VECTOR3                  |
+	|                QUARTZMATH VECTOR3                  |
 	=====================================================*/
 
 	template<typename IntType>
@@ -483,7 +483,7 @@ namespace Quartz
 	typedef Vector3<double>	Vec3d;
 
 	/*====================================================
-	|	             QUARTZMATH VECTOR4                  |
+	|                QUARTZMATH VECTOR4                  |
 	=====================================================*/
 
 	template<typename IntType>

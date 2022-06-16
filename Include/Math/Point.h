@@ -5,7 +5,7 @@
 namespace Quartz
 {
 	/*====================================================
-	|	              QUARTZMATH POINT2                  |
+	|                 QUARTZMATH POINT2                  |
 	=====================================================*/
 
 	template<typename IntType>
@@ -28,7 +28,7 @@ namespace Quartz
 	typedef Point2<double>	Point2d;
 
 	/*====================================================
-	|	              QUARTZMATH POINT3                  |
+	|                 QUARTZMATH POINT3                  |
 	=====================================================*/
 
 	template<typename IntType>
@@ -51,7 +51,7 @@ namespace Quartz
 	typedef Point3<double>	Point3d;
 
 	/*====================================================
-	|	              QUARTZMATH POINT4                  |
+	|                 QUARTZMATH POINT4                  |
 	=====================================================*/
 
 	template<typename IntType>

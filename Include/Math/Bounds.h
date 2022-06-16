@@ -6,7 +6,7 @@
 namespace Quartz
 {
 	/*====================================================
-	|	              QUARTZMATH BOUNDS2                 |
+	|                 QUARTZMATH BOUNDS2                 |
 	=====================================================*/
 
 	template<typename IntType>
@@ -114,7 +114,7 @@ namespace Quartz
 	typedef Bounds2<double>	Bounds2d;
 
 	/*====================================================
-	|	             QUARTZMATH BOUNDS3                  |
+	|                QUARTZMATH BOUNDS3                  |
 	=====================================================*/
 
 	template<typename IntType>
@@ -247,7 +247,7 @@ namespace Quartz
 	typedef Bounds3<double>	Bounds3d;
 
 	/*====================================================
-	|	                BOUNDS UTILITY                   |
+	|                   BOUNDS UTILITY                   |
 	=====================================================*/
 
 	template<typename IntType>

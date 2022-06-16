@@ -7,7 +7,7 @@
 namespace Quartz
 {
 	/*====================================================
-	|	             QUARTZMATH UTILITY                  |
+	|                QUARTZMATH UTILITY                  |
 	=====================================================*/
 
 	// Fast inverse square root
