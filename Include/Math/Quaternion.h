@@ -89,13 +89,19 @@ namespace Quartz
 			return *this;
 		}
 
-		/** Get the magnitude this quaternion */
+		/** Get the magnitude of this quaternion */
 		IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
 
-		/** Get the squared magnitude this quaternion */
+		/** Get the inverse of the magnitude of this quaternion */
+		IntType InverseMagnitude() const
+		{
+			return FastInvsereSquare(MagnitudeSquared());
+		}
+
+		/** Get the squared magnitude of this quaternion */
 		constexpr IntType MagnitudeSquared() const
 		{
 			return (x * x) + (y * y) + (z * z) + (w * w);
@@ -104,22 +110,22 @@ namespace Quartz
 		/** Normalize this quaternion */
 		Quaternion& Normalize()
 		{
-			IntType mag = Magnitude();
-			this->x *= mag;
-			this->y *= mag;
-			this->z *= mag;
-			this->w *= mag;
+			IntType inverse = InverseMagnitude();
+			this->x *= inverse;
+			this->y *= inverse;
+			this->z *= inverse;
+			this->w *= inverse;
 			return *this;
 		}
 
 		/** Get the normalized quaternion */
 		constexpr Quaternion Normalized() const
 		{
-			IntType mag = Magnitude();
-			IntType rx = x * mag;
-			IntType ry = y * mag;
-			IntType rz = z * mag;
-			IntType rw = w * mag;
+			IntType inverse = InverseMagnitude();
+			IntType rx = x * inverse;
+			IntType ry = y * inverse;
+			IntType rz = z * inverse;
+			IntType rw = w * inverse;
 			return Quaternion(rx, ry, rz, rw);
 		}
 

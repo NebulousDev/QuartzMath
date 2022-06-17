@@ -53,13 +53,19 @@ namespace Quartz
 			this->y = vec2.y;
 		}
 
-		/** Get the magnitude this vector */
+		/** Get the magnitude this of vector */
 		IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
 
-		/** Get the squared magnitude this vector */
+		/** Get the inverse of the magnitude this of vector */
+		IntType InverseMagnitude() const
+		{
+			return FastInvsereSquare(MagnitudeSquared());
+		}
+
+		/** Get the squared magnitude of this vector */
 		constexpr IntType MagnitudeSquared() const
 		{
 			return (x * x) + (y * y);
@@ -68,9 +74,9 @@ namespace Quartz
 		/** Normalize this vector */
 		Vector2& Normalize()
 		{
-			IntType mag = Magnitude();
-			this->x *= mag;
-			this->y *= mag;
+			IntType inverse = InverseMagnitude();
+			this->x *= inverse;
+			this->y *= inverse;
 			return *this;
 		}
 
@@ -78,9 +84,9 @@ namespace Quartz
 		Vector2 Normalized() const
 		{
 			Vector2 result;
-			IntType mag = Magnitude();
-			result.x = x * mag;
-			result.y = y * mag;
+			IntType inverse = InverseMagnitude();
+			result.x = x * inverse;
+			result.y = y * inverse;
 			return result;
 		}
 
@@ -283,13 +289,19 @@ namespace Quartz
 			this->z = vec3.z;
 		}
 
-		/** Get the magnitude this vector */
+		/** Get the magnitude of this vector */
 		IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
 
-		/** Get the squared magnitude this vector */
+		/** Get the magnitude of this vector */
+		IntType InverseMagnitude() const
+		{
+			return FastInvsereSquare(MagnitudeSquared());
+		}
+
+		/** Get the squared magnitude of this vector */
 		constexpr IntType MagnitudeSquared() const
 		{
 			return (x * x) + (y * y) + (z * z);
@@ -298,10 +310,10 @@ namespace Quartz
 		/** Normalize this vector */
 		Vector3& Normalize()
 		{
-			IntType mag = Magnitude();
-			this->x *= mag
-			this->y *= mag;
-			this->z *= mag;
+			IntType inverse = InverseMagnitude();
+			this->x *= inverse;
+			this->y *= inverse;
+			this->z *= inverse;
 			return *this;
 		}
 
@@ -309,10 +321,10 @@ namespace Quartz
 		Vector3 Normalized() const
 		{
 			Vector3 result;
-			IntType mag = Magnitude();
-			result.x = x * mag;
-			result.y = y * mag;
-			result.z = z * mag;
+			IntType inverse = InverseMagnitude();
+			result.x = x * inverse;
+			result.y = y * inverse;
+			result.z = z * inverse;
 			return result;
 		}
 
@@ -542,13 +554,19 @@ namespace Quartz
 			this->w = vec4.w;
 		}
 
-		/** Get the magnitude this vector */
+		/** Get the magnitude of this vector */
 		IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
 
-		/** Get the squared magnitude this vector */
+		/** Get the magnitude of this vector */
+		IntType InverseMagnitude() const
+		{
+			return FastInvsereSquare(MagnitudeSquared());
+		}
+
+		/** Get the squared magnitude of this vector */
 		IntType MagnitudeSquared() const
 		{
 			return (x * x) + (y * y) + (z * z) + (w * w);
@@ -557,11 +575,11 @@ namespace Quartz
 		/** Normalize this vector */
 		Vector4& Normalize()
 		{
-			IntType mag = Magnitude();
-			this->x *= mag;
-			this->y *= mag;
-			this->z *= mag;
-			this->w *= mag;
+			IntType inverse = InverseMagnitude();
+			this->x *= inverse;
+			this->y *= inverse;
+			this->z *= inverse;
+			this->w *= inverse;
 			return *this;
 		}
 
@@ -569,11 +587,11 @@ namespace Quartz
 		Vector4 Normalized() const
 		{
 			Vector4 result;
-			IntType mag = Magnitude();
-			result.x = x * mag;
-			result.y = y * mag;
-			result.z = z * mag;
-			result.w = w * mag;
+			IntType inverse = InverseMagnitude();
+			result.x = x * inverse;
+			result.y = y * inverse;
+			result.z = z * inverse;
+			result.w = w * inverse;
 			return result;
 		}
 
