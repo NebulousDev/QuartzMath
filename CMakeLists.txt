@@ -4,7 +4,11 @@ option(QUARTZMATH_GENERATE_CONFIGS "Enable generation of QuartzMathConfig.cmake"
 
 set(QUARTZMATH_INCLUDE_PREFIX "Quartz" CACHE STRING "Include prefix for installed headers")
 
-project(QuartzMath VERSION 1.0.0)
+project(QuartzMath 
+    VERSION 1.0.1
+    DESCRIPTION "A simple math library created for use with the Quartz Engine"
+    HOMEPAGE_URL "https://github.com/NebulousDev/QuartzMath"
+)
 
 include(GNUInstallDirs)
 
@@ -23,24 +27,12 @@ if(QUARTZMATH_GENERATE_CONFIGS)
 
     include(CMakePackageConfigHelpers)
 
-    # Header-only cmake configs:
-    # https://dominikberner.ch/cmake-interface-lib/
-    # https://stackoverflow.com/questions/47718485/install-and-export-interface-only-library-cmake
+    # Header-only cmake configs: https://dominikberner.ch/cmake-interface-lib/
 
     write_basic_package_version_file(
         "${CMAKE_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
-    )
-
-    install(
-        TARGETS ${PROJECT_NAME}
-        EXPORT ${PROJECT_NAME}Targets
-        LIBRARY DESTINATION lib COMPONENT Runtime
-        ARCHIVE DESTINATION lib COMPONENT Development
-        RUNTIME DESTINATION bin COMPONENT Runtime
-        PUBLIC_HEADER DESTINATION include COMPONENT Development
-        BUNDLE DESTINATION bin COMPONENT Runtime
     )
 
     configure_package_config_file(
@@ -50,14 +42,24 @@ if(QUARTZMATH_GENERATE_CONFIGS)
     )
 
     install(
+        TARGETS ${PROJECT_NAME}
+        EXPORT ${PROJECT_NAME}Targets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    )
+
+    install(
         EXPORT ${PROJECT_NAME}Targets 
+        FILE ${PROJECT_NAME}Targets.cmake
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}
+        NAMESPACE Quartz::
     )
 
     install(
         FILES 
-            "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
             "${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+            "${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
         DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/${PROJECT_NAME}
     )
 
@@ -66,6 +68,6 @@ if(QUARTZMATH_GENERATE_CONFIGS)
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${QUARTZMATH_INCLUDE_PREFIX}
     )
 
-    message("[${PROJECT_NAME}] Generating ${PROJECT_NAME}Config.cmake...")
+    message("[${PROJECT_NAME}] Generating config files...")
 
 endif()
