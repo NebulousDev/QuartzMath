@@ -74,12 +74,12 @@ namespace Quartz
 		/** Set a Quaternion from euler angles */
 		constexpr Quaternion& SetEuler(const Vector3<IntType>& euler)
 		{
-			IntType cx = cosf(x * 0.5f);
-			IntType cy = cosf(y * 0.5f);
-			IntType cz = cosf(z * 0.5f);
-			IntType sx = sinf(x * 0.5f);
-			IntType sy = sinf(y * 0.5f);
-			IntType sz = sinf(z * 0.5f);
+			IntType cx = cosf(euler.x * 0.5f);
+			IntType cy = cosf(euler.y * 0.5f);
+			IntType cz = cosf(euler.z * 0.5f);
+			IntType sx = sinf(euler.x * 0.5f);
+			IntType sy = sinf(euler.y * 0.5f);
+			IntType sz = sinf(euler.z * 0.5f);
 
 			this->x = cx * sy * sz + cy * cz * sx;
 			this->y = cx * cz * sy - cy * sx * sz;
