@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.20.0)
 
 option(QUARTZMATH_GENERATE_CONFIGS "Enable generation of QuartzMathConfig.cmake" ON)
 
-project(QuartzMath VERSION 1.0.0)
+project(QuartzMath VERSION 1.0.1)
 
 include(GNUInstallDirs)
 
@@ -17,7 +17,7 @@ target_include_directories(${PROJECT_NAME}
 )
 
 # Generate QuartzMathConfig.cmake
-if(NOT ${QUARTZ_SUPERBUILD} AND QUARTZMATH_GENERATE_CONFIGS)
+if((NOT ${QUARTZ_SUPERBUILD}) AND QUARTZMATH_GENERATE_CONFIGS)
 
     include(CMakePackageConfigHelpers)
 
