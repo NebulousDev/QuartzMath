@@ -215,7 +215,12 @@ namespace Quartz
 
 		constexpr bool IsZero() const
 		{
-			return x == y == 0;
+			return x == 0 && y == 0;
+		}
+
+		constexpr bool IsNearZero(IntType delta = (double)0.00001) const
+		{
+			return x <= delta && y <= delta;
 		}
 	};
 
@@ -474,7 +479,12 @@ namespace Quartz
 
 		constexpr bool IsZero() const
 		{
-			return x == y == z == 0;
+			return x == 0 && y == 0 && z == 0;
+		}
+
+		constexpr bool IsNearZero(IntType delta = (double)0.000001) const
+		{
+			return x <= delta && y <= delta && z <= delta;
 		}
 	};
 
@@ -744,7 +754,12 @@ namespace Quartz
 
 		constexpr bool IsZero() const
 		{
-			return x == y == z == w == 0;
+			return x == 0 && y == 0 && z == 0 && w == 0;
+		}
+
+		constexpr bool IsNearZero(IntType delta = (double)0.00001) const
+		{
+			return x <= delta && y <= delta && z <= delta && w <= delta;
 		}
 	};
 
