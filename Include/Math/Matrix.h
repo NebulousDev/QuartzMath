@@ -121,6 +121,18 @@ namespace Quartz
 			return *this;
 		}
 
+		/** Set to a rotation matrix */
+		constexpr Matrix4& SetRotation(const Vector3<IntType>& axis, IntType angle)
+		{
+			return SetRotation(Quaternion(axis, angle));
+		}
+
+		/** Set to a rotation matrix */
+		constexpr Matrix4& SetRotation(const Vector3<IntType>& euler)
+		{
+			return SetRotation(Quaternion(euler));
+		}
+
 		/** Set to a scale matrix */
 		constexpr Matrix4& SetScale(const Vector3<IntType>& scale)
 		{
