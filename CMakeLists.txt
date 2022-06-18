@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.20.0)
 
 option(QUARTZMATH_GENERATE_CONFIGS "Enable generation of QuartzMathConfig.cmake" ON)
 
-project(QuartzMath VERSION 1.0.1)
+set(QUARTZMATH_INCLUDE_PREFIX "Quartz" CACHE STRING "Include prefix for installed headers")
+
+project(QuartzMath VERSION 1.0.0)
 
 include(GNUInstallDirs)
 
@@ -13,11 +15,11 @@ target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 target_include_directories(${PROJECT_NAME} 
 	INTERFACE 
 		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Include>"
-		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${QUARTZMATH_INCLUDE_PREFIX}>"
 )
 
 # Generate QuartzMathConfig.cmake
-if((NOT ${QUARTZ_SUPERBUILD}) AND QUARTZMATH_GENERATE_CONFIGS)
+if(QUARTZMATH_GENERATE_CONFIGS)
 
     include(CMakePackageConfigHelpers)
 
@@ -61,7 +63,9 @@ if((NOT ${QUARTZ_SUPERBUILD}) AND QUARTZMATH_GENERATE_CONFIGS)
 
     install(
         DIRECTORY "${PROJECT_SOURCE_DIR}/Include/" 
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${QUARTZMATH_INCLUDE_PREFIX}
     )
+
+    message("[${PROJECT_NAME}] Generating ${PROJECT_NAME}Config.cmake...")
 
 endif()
