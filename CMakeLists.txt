@@ -5,7 +5,7 @@ option(QUARTZMATH_GENERATE_CONFIGS "Enable generation of QuartzMathConfig.cmake"
 set(QUARTZMATH_INCLUDE_PREFIX "Quartz" CACHE STRING "Include prefix for installed headers")
 
 project(QuartzMath 
-    VERSION 1.0.1
+    VERSION 1.0.3
     DESCRIPTION "A simple math library created for use with the Quartz Engine"
     HOMEPAGE_URL "https://github.com/NebulousDev/QuartzMath"
 )
@@ -19,7 +19,7 @@ target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_17)
 target_include_directories(${PROJECT_NAME} 
 	INTERFACE 
 		"$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/Include>"
-		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/${QUARTZMATH_INCLUDE_PREFIX}>"
+		"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
 # Generate QuartzMathConfig.cmake

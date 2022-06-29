@@ -1,14 +1,13 @@
 #pragma once
 
 #include "Vector.h"
+#include "Quaternion.h"
 
 namespace Quartz
 {
 	/*====================================================
 	|                 QUARTZMATH MATRIX4                 |
 	=====================================================*/
-
-	struct Quaternion;
 
 	template<typename IntType>
 	struct Matrix4
@@ -91,7 +90,7 @@ namespace Quartz
 		}
 
 		/** Set to a rotation matrix */
-		constexpr Matrix4& SetRotation(const Quaternion& rotation)
+		constexpr Matrix4& SetRotation(const Quaternion<IntType>& rotation)
 		{
 			float qx = rotation.x;
 			float qy = rotation.y;
