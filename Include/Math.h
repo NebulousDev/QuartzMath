@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Util.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include "Quaternion.h"
+#include "Math/Util.h"
+#include "Math/Vector.h"
+#include "Math/Matrix.h"
+#include "Math/Quaternion.h"
