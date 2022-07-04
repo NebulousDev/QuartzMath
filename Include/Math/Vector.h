@@ -260,6 +260,13 @@ namespace Quartz
 
 		};
 
+		static const Vector3<IntType> UP;
+		static const Vector3<IntType> DOWN;
+		static const Vector3<IntType> LEFT;
+		static const Vector3<IntType> RIGHT;
+		static const Vector3<IntType> FORWARD;
+		static const Vector3<IntType> BACKWARD;
+
 		/** Construct an uninitialized Vector3 */
 		constexpr Vector3()
 			: x(0), y(0), z(0) { }
@@ -762,6 +769,24 @@ namespace Quartz
 			return x <= delta && y <= delta && z <= delta && w <= delta;
 		}
 	};
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::UP		= Vector3<IntType>( 0,  1,  0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::DOWN		= Vector3<IntType>( 0, -1,  0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::LEFT		= Vector3<IntType>(-1,  0,  0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::RIGHT	= Vector3<IntType>( 1,  0,  0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::FORWARD	= Vector3<IntType>( 0,  0,  1);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::BACKWARD	= Vector3<IntType>( 0,  0, -1);
 
 	typedef Vector4<uInt8>	Vec4u8;
 	typedef Vector4<uInt16>	Vec4u16;
