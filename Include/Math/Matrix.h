@@ -156,7 +156,7 @@ namespace Quartz
 
 		/** Set to a lookat matrix */
 		constexpr Matrix4& SetLookAt(
-			const Vector3<IntType>& eye, const Vector3<IntType>& target, const Vector3<IntType>& up)
+			const Vector3<IntType>& eye, const Vector3<IntType>& target, const Vector3<IntType>& globalUp)
 		{
 			Vector3<IntType> forward	= (target - eye).Normalize();
 			Vector3<IntType> right		= Cross(globalUp, forward).Normalize();
