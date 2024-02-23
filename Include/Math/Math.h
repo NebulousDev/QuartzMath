@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Util.h"
+#include "Noise.h"
 #include "Point.h"
 #include "Vector.h"
 #include "Bounds.h"

@@ -103,4 +103,19 @@ namespace Quartz
 	{
 		return radians * (180.0f / 3.14159265f);
 	}
+
+	inline float Lerp(float a, float b, float t)
+	{
+		return a + (b - a) * t;
+	}
+
+	inline float Cerp(float a, float b, float t)
+	{
+		return (b - a) * (3.0 - t * 2.0) * t * t + a;
+	}
+
+	inline float Fade(float t)
+	{
+		return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+	}
 }
