@@ -102,6 +102,12 @@ namespace Quartz
 			return result;
 		}
 
+		/* Get the value of the maximum axis */
+		float Maximum() const
+		{
+			return x > y ? x : y;
+		}
+
 		/** Get the dot product of two vectors */
 		constexpr friend IntType Dot(const Vector2& veca, const Vector2& vecb)
 		{
@@ -358,6 +364,12 @@ namespace Quartz
 			result.y = y * inverse;
 			result.z = z * inverse;
 			return result;
+		}
+
+		/* Get the value of the maximum axis */
+		float Maximum() const
+		{
+			return x > y ? (x > z ? x : z) : (y > z ? y : z);
 		}
 
 		/** Get the dot product of two vectors */
@@ -638,6 +650,22 @@ namespace Quartz
 			result.z = z * inverse;
 			result.w = w * inverse;
 			return result;
+		}
+
+		/* Get the value of the maximum axis */
+		float Maximum() const
+		{
+			float max = x;
+
+			for (uSize i = 1; i < 4; i++)
+			{
+				if (e[i] > max)
+				{
+					max = value;
+				}
+			}
+
+			return max;
 		}
 
 		/** Get the dot product of two vectors */
