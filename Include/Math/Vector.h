@@ -56,13 +56,25 @@ namespace Quartz
 		/** Get the magnitude this of vector */
 		IntType Magnitude() const
 		{
-			return 1.0f / FastInvsereSquare(MagnitudeSquared());
+			return 1.0f / InverseMagnitudeF();
+		}
+
+		/** Get the magnitude this of vector as a floating point */
+		float MagnitudeF() const
+		{
+			return 1.0f / InverseMagnitudeF();
 		}
 
 		/** Get the inverse of the magnitude this of vector */
 		IntType InverseMagnitude() const
 		{
-			return FastInvsereSquare(MagnitudeSquared());
+			return FastInvsereSquare((float)MagnitudeSquared());
+		}
+
+		/** Get the inverse of the magnitude this of vector as a floating point */
+		float InverseMagnitudeF() const
+		{
+			return FastInvsereSquare((float)MagnitudeSquared());
 		}
 
 		/** Get the squared magnitude of this vector */
@@ -134,10 +146,12 @@ namespace Quartz
 		}
 
 		/** Subtract a vector to this */
-		constexpr void operator-=(const Vector2& vec2)
+		constexpr Vector2 operator-=(const Vector2& vec2)
 		{
 			x -= vec2.x;
 			y -= vec2.y;
+
+			return *this;
 		}
 
 		/** Multiply a vector to this */
@@ -147,10 +161,12 @@ namespace Quartz
 		}
 
 		/** Multiply a vector to this */
-		constexpr void operator*=(const Vector2& vec2)
+		constexpr Vector2 operator*=(const Vector2& vec2)
 		{
 			x *= vec2.x;
 			y *= vec2.y;
+
+			return *this;
 		}
 
 		/** Multiply a IntType to this */
@@ -170,6 +186,8 @@ namespace Quartz
 		{
 			x *= value;
 			y *= value;
+
+			return *this;
 		}
 
 		/** Divide a vector from this */
@@ -179,10 +197,12 @@ namespace Quartz
 		}
 
 		/** Divide a vector from this */
-		constexpr void operator/=(const Vector2& vec2)
+		constexpr Vector2 operator/=(const Vector2& vec2)
 		{
 			x /= vec2.x;
 			y /= vec2.y;
+
+			return *this;
 		}
 
 		/** Check if two matrices are equal */
@@ -380,11 +400,13 @@ namespace Quartz
 		}
 
 		/** Add a vector to this */
-		constexpr void operator+=(const Vector3& vec3)
+		constexpr Vector3 operator+=(const Vector3& vec3)
 		{
 			x += vec3.x;
 			y += vec3.y;
 			z += vec3.z;
+
+			return *this;
 		}
 
 		/** Subtract a vector to this */
@@ -394,11 +416,13 @@ namespace Quartz
 		}
 
 		/** Subtract a vector to this */
-		constexpr void operator-=(const Vector3& vec3)
+		constexpr Vector3 operator-=(const Vector3& vec3)
 		{
 			x -= vec3.x;
 			y -= vec3.y;
 			z -= vec3.z;
+
+			return *this;
 		}
 
 		/** Multiply a vector to this */
@@ -433,6 +457,8 @@ namespace Quartz
 			x *= value;
 			y *= value;
 			z *= value;
+
+			return *this;
 		}
 
 		/** Divide a vector from this */
@@ -442,11 +468,13 @@ namespace Quartz
 		}
 
 		/** Divide a vector from this */
-		constexpr void operator/=(const Vector3& vec3)
+		constexpr Vector3 operator/=(const Vector3& vec3)
 		{
 			x /= vec3.x;
 			y /= vec3.y;
 			z /= vec3.z;
+
+			return *this;
 		}
 
 		/** Check if two matrices are equal */
@@ -643,12 +671,14 @@ namespace Quartz
 		}
 
 		/** Add a vector to this */
-		constexpr void operator+=(const Vector4& vec4)
+		constexpr Vector4 operator+=(const Vector4& vec4)
 		{
 			x += vec4.x;
 			y += vec4.y;
 			z += vec4.z;
 			w += vec4.w;
+
+			return *this;
 		}
 
 		/** Subtract a vector to this */
@@ -658,12 +688,14 @@ namespace Quartz
 		}
 
 		/** Subtract a vector to this */
-		constexpr void operator-=(const Vector4& vec4)
+		constexpr Vector4 operator-=(const Vector4& vec4)
 		{
 			x -= vec4.x;
 			y -= vec4.y;
 			z -= vec4.z;
 			w -= vec4.w;
+
+			return *this;
 		}
 
 		/** Multiply a vector to this */
@@ -673,12 +705,14 @@ namespace Quartz
 		}
 
 		/** Multiply a vector to this */
-		constexpr void operator*=(const Vector4& vec4)
+		constexpr Vector4 operator*=(const Vector4& vec4)
 		{
 			x *= vec4.x;
 			y *= vec4.y;
 			z *= vec4.z;
 			w *= vec4.w;
+
+			return *this;
 		}
 
 		/** Multiply a IntType to this */
@@ -700,6 +734,8 @@ namespace Quartz
 			y *= value;
 			z *= value;
 			w *= value;
+
+			return *this;
 		}
 
 		/** Divide a vector from this */
@@ -709,12 +745,14 @@ namespace Quartz
 		}
 
 		/** Divide a vector from this */
-		constexpr void operator/=(const Vector4& vec4)
+		constexpr Vector4 operator/=(const Vector4& vec4)
 		{
 			x /= vec4.x;
 			y /= vec4.y;
 			z /= vec4.z;
 			w /= vec4.w;
+
+			return *this;
 		}
 
 		/** Check if two matrices are equal */

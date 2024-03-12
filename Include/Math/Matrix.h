@@ -6,6 +6,218 @@
 namespace Quartz
 {
 	/*====================================================
+	|                 QUARTZMATH MATRIX3                 |
+	=====================================================*/
+
+	template<typename IntType>
+	struct Matrix3
+	{
+		union
+		{
+			// Row major: accessed m[row][column]
+			IntType m[3][3];
+
+			// Row major: accessed e[row + column * 3]
+			IntType e[9];
+
+			// Row major
+			struct
+			{
+				IntType m00, m01, m02;
+				IntType m10, m11, m12; 
+				IntType m20, m21, m22;
+			};
+		};
+
+		/** Construct an uninitialized Matrix3 */
+		constexpr Matrix3() {};
+
+		/** Construct a Matrix3 from values */
+		constexpr Matrix3(
+			IntType m00, IntType m01, IntType m02,
+			IntType m10, IntType m11, IntType m12,
+			IntType m20, IntType m21, IntType m22)
+		{
+			this->m00 = m00; this->m01 = m01; this->m02 = m02;
+			this->m10 = m10; this->m11 = m11; this->m12 = m12;
+			this->m20 = m20; this->m21 = m21; this->m22 = m22;
+		}
+
+		/** Construct a Matrix3 from vectors */
+		constexpr Matrix3(
+			const Vector3<IntType>& vecX, const Vector3<IntType>& vecY, const Vector3<IntType>& vecZ)
+		{
+			this->m00 = vecX.x; this->m01 = vecX.y; this->m02 = vecX.z;
+			this->m10 = vecY.x; this->m11 = vecY.y; this->m12 = vecY.z;
+			this->m20 = vecZ.x; this->m21 = vecZ.y; this->m22 = vecZ.z;
+		}
+
+		/** Set to the identity matrix */
+		constexpr Matrix3& SetZero()
+		{
+			for (int i = 0; i < 9; i++)
+				e[i] = 0.0f;
+
+			return *this;
+		}
+
+		/** Set to the identity matrix */
+		constexpr Matrix3& SetIdentity()
+		{
+			m00 = 1; m01 = 0; m02 = 0;
+			m10 = 0; m11 = 1; m12 = 0;
+			m20 = 0; m21 = 0; m22 = 1;
+			return *this;
+		}
+
+		/** Transpose this matrix */
+		constexpr Matrix3& Transpose()
+		{
+			return *this = Transposed();
+		}
+
+		/** Get the transposed matrix */
+		constexpr Matrix3 Transposed() const
+		{
+			Matrix3 result;
+			result.m00 = m00; result.m01 = m10; result.m02 = m20;
+			result.m10 = m01; result.m11 = m11; result.m12 = m21;
+			result.m20 = m02; result.m21 = m12; result.m22 = m22;
+			return result;
+		}
+
+		/** Devide each column by a vector */
+		constexpr Matrix3 DivideColumns(
+			const Vector3<IntType>& col1, const Vector3<IntType>& col2, const Vector3<IntType>& col3)
+		{
+			// TODO: probably flipped
+
+			Matrix3 result;
+
+			result.m00 = m00 / col1.x;
+			result.m10 = m10 / col1.y;
+			result.m20 = m20 / col1.z;
+
+			result.m01 = m01 / col2.x;
+			result.m11 = m11 / col2.y;
+			result.m21 = m21 / col2.z;
+
+			result.m02 = m02 / col3.x;
+			result.m12 = m12 / col3.y;
+			result.m22 = m22 / col3.z;
+
+			result.m03 = m03 / col4.x;
+			result.m13 = m13 / col4.y;
+			result.m23 = m23 / col4.z;
+
+			return result;
+		}
+
+		/** Get a component by index */
+		constexpr IntType& operator[](int index)
+		{
+			return e[index];
+		}
+
+		/** Get a component by index */
+		constexpr IntType operator[](int index) const
+		{
+			return e[index];
+		}
+
+		/** Multiply a matrix to this */
+		constexpr Matrix3 operator*(const Matrix3& mat3) const
+		{
+			Matrix3 result;
+
+			result.m00 = m00 * mat3.m00 + m01 * mat3.m10 + m02 * mat3.m20;
+			result.m01 = m00 * mat3.m01 + m01 * mat3.m11 + m02 * mat3.m21;
+			result.m02 = m00 * mat3.m02 + m01 * mat3.m12 + m02 * mat3.m22;
+			result.m03 = m00 * mat3.m03 + m01 * mat3.m13 + m02 * mat3.m23;
+
+			result.m10 = m10 * mat3.m00 + m11 * mat3.m10 + m12 * mat3.m20;
+			result.m11 = m10 * mat3.m01 + m11 * mat3.m11 + m12 * mat3.m21;
+			result.m12 = m10 * mat3.m02 + m11 * mat3.m12 + m12 * mat3.m22;
+			result.m13 = m10 * mat3.m03 + m11 * mat3.m13 + m12 * mat3.m23;
+
+			result.m20 = m20 * mat3.m00 + m21 * mat3.m10 + m22 * mat3.m20;
+			result.m21 = m20 * mat3.m01 + m21 * mat3.m11 + m22 * mat3.m21;
+			result.m22 = m20 * mat3.m02 + m21 * mat3.m12 + m22 * mat3.m22;
+			result.m23 = m20 * mat3.m03 + m21 * mat3.m13 + m22 * mat3.m23;
+
+			return result;
+		}
+
+		/** Multiply this by a matrix */
+		constexpr void operator*=(const Matrix3& mat3)
+		{
+			*this = this * mat3;
+		}
+
+		/** Multiply a Vector4<IntType> to this */
+		constexpr Vector4<IntType> operator*(const Vector4<IntType>& vec4) const
+		{
+			Vector4<IntType> result;
+
+			result.x = m00 * vec4.x + m10 * vec4.y + m20 * vec4.z;
+			result.y = m01 * vec4.x + m11 * vec4.y + m21 * vec4.z;
+			result.z = m02 * vec4.x + m12 * vec4.y + m22 * vec4.z;
+
+			return result;
+		}
+
+		/** Multiply a IntType to this */
+		constexpr Matrix3 operator*(IntType value) const
+		{
+			Matrix3 result;
+			for (int i = 0; i < 9; i++)
+				result.e[i] = e[i] * value;
+			return result;
+		}
+
+		/** Multiply a IntType to this */
+		friend constexpr Matrix3 operator*(IntType value, const Matrix3& mat3)
+		{
+			return mat3 * value;
+		}
+
+		/** Multiply a IntType to this */
+		constexpr void operator*=(IntType value)
+		{
+			for (int i = 0; i < 9; i++)
+				e[i] = e[i] * value;
+		}
+
+		/** Check if two matrices are equal */
+		constexpr bool operator==(const Matrix3& mat3) const
+		{
+			for (int row = 0; row < 3; row++)
+			{
+				for (int col = 0; col < 3; col++)
+				{
+					if (m[row][col] != mat3.m[row][col])
+					{
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		/** Check if two matrices are not equal */
+		constexpr bool operator!=(const Matrix3& mat3) const
+		{
+			return !(*this == mat3);
+		}
+	};
+
+	typedef Matrix3<sSize>	Mat3i;
+	typedef Matrix3<uSize>	Mat3u;
+	typedef Matrix3<float>	Mat3f;
+	typedef Matrix3<double>	Mat3d;
+
+	/*====================================================
 	|                 QUARTZMATH MATRIX4                 |
 	=====================================================*/
 

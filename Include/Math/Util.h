@@ -109,9 +109,25 @@ namespace Quartz
 		return a + (b - a) * t;
 	}
 
+	inline float InvLerp(float a, float b, float t)
+	{
+		return (t - a) / (b - a);
+	}
+
 	inline float Cerp(float a, float b, float t)
 	{
-		return (b - a) * (3.0 - t * 2.0) * t * t + a;
+		return (b - a) * (3.0f - t * 2.0f) * t * t + a;
+	}
+
+	inline float Smoothstep(float a, float b, float t)
+	{
+		t = t * t * (3.0 - 2.0 * t);
+		return (b - a) * t + a;
+	}
+
+	inline float Parabola(float a, float h, float k, float t)
+	{
+		return a * (t - h) * (t - h) + k;
 	}
 
 	inline float Fade(float t)
