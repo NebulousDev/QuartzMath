@@ -634,6 +634,13 @@ namespace Quartz
 			*this = this * mat4;
 		}
 
+		/** Multiply a Vector3<IntType> to this */
+		constexpr Vector3<IntType> operator*(const Vector3<IntType>& vec3) const
+		{
+			Vector4<IntType> vec4(vec3, 1.0f);
+			return operator*(vec4).xyz();
+		}
+
 		/** Multiply a Vector4<IntType> to this */
 		constexpr Vector4<IntType> operator*(const Vector4<IntType>& vec4) const
 		{

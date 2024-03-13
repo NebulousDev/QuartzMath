@@ -73,7 +73,7 @@ namespace Quartz
 
 		constexpr Point2<IntType> BottomRight() const
 		{
-			return Point2<IntType>(start.y, end.x);
+			return Point2<IntType>(end.x, start.y);
 		}
 
 		constexpr Vector2<IntType> Extent() const
@@ -186,7 +186,7 @@ namespace Quartz
 
 		constexpr Point3<IntType> TopLeftBack() const
 		{
-			return Point3<IntType>(start.x, end.y, end.y);
+			return Point3<IntType>(start.x, end.y, end.z);
 		}
 
 		constexpr Point3<IntType> TopRightBack() const

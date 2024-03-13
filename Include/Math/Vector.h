@@ -286,6 +286,12 @@ namespace Quartz
 
 		};
 
+		static const Vector3<IntType> ZERO;
+
+		static const Vector3<IntType> X_AXIS;
+		static const Vector3<IntType> Y_AXIS;
+		static const Vector3<IntType> Z_AXIS;
+
 		static const Vector3<IntType> UP;
 		static const Vector3<IntType> DOWN;
 		static const Vector3<IntType> LEFT;
@@ -835,6 +841,18 @@ namespace Quartz
 			return x <= delta && y <= delta && z <= delta && w <= delta;
 		}
 	};
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::ZERO		= Vector3<IntType>(0, 0, 0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::X_AXIS	= Vector3<IntType>(1, 0, 0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::Y_AXIS	= Vector3<IntType>(0, 1, 0);
+
+	template<typename IntType>
+	constexpr const Vector3<IntType> Vector3<IntType>::Z_AXIS	= Vector3<IntType>(0, 0, 1);
 
 	template<typename IntType>
 	constexpr const Vector3<IntType> Vector3<IntType>::UP		= Vector3<IntType>( 0,  1,  0);
