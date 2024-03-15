@@ -94,6 +94,18 @@ namespace Quartz
 		return y;
 	}
 
+	template<typename Type>
+	inline const Type& Min(const Type& a, const Type& b)
+	{
+		return a < b ? a : b;
+	};
+
+	template<typename Type>
+	inline const Type& Max(const Type& a, const Type& b)
+	{
+		return a > b ? a : b;
+	};
+
 	inline float ToRadians(float degrees)
 	{
 		return degrees * (3.14159265f / 180.0f);
