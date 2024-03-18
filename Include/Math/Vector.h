@@ -485,7 +485,7 @@ namespace Quartz
 			return Vector3(x / vec3.x, y / vec3.y, z / vec3.z);
 		}
 
-		/** Divide a vector from this */
+		/** Divide a IntType from this */
 		constexpr Vector3 operator/=(const Vector3& vec3)
 		{
 			x /= vec3.x;
@@ -493,6 +493,18 @@ namespace Quartz
 			z /= vec3.z;
 
 			return *this;
+		}
+
+		/** Divide a vector from this */
+		constexpr Vector3 operator/(IntType value) const
+		{
+			return Vector3(x / value, y / value, z / value);
+		}
+
+		/** Divide a IntType to this */
+		constexpr friend Vector3 operator/(IntType value, const Vector3& vec3)
+		{
+			return Vector3(value / vec3.x, value / vec3.y, value / vec3.z);
 		}
 
 		/** Check if two matrices are equal */

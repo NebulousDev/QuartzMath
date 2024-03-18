@@ -70,6 +70,68 @@ namespace Quartz
 			return *this;
 		}
 
+		/** Set to the identity matrix */
+		constexpr Matrix3& SetIdentity(IntType value)
+		{
+			m00 = value; m01 = 0; m02 = 0;
+			m10 = 0; m11 = value; m12 = 0;
+			m20 = 0; m21 = 0; m22 = value;
+			return *this;
+		}
+
+		/** Set to the identity matrix */
+		constexpr Matrix3& SetIdentity(const Vec3f& vec3)
+		{
+			m00 = vec3.x; m01 = 0; m02 = 0;
+			m10 = 0; m11 = vec3.y; m12 = 0;
+			m20 = 0; m21 = 0; m22 = vec3.z;
+			return *this;
+		}
+
+		/** Set to a rotation matrix */
+		constexpr Matrix3& SetRotation(const Quaternion<IntType>& rotation)
+		{
+			float qx = rotation.x;
+			float qy = rotation.y;
+			float qz = rotation.z;
+			float qw = rotation.w;
+
+			m00 = 1.0f - 2.0f * ((qy * qy) + (qz * qz));
+			m01 = 2.0f * ((qx * qy) + (qz * qw));
+			m02 = 2.0f * ((qx * qz) - (qy * qw));
+
+			m10 = 2.0f * ((qx * qy) - (qz * qw));
+			m11 = 1.0f - 2.0f * ((qx * qx) + (qz * qz));
+			m12 = 2.0f * ((qy * qz) + (qx * qw));
+
+			m20 = 2.0f * ((qx * qz) + (qy * qw));
+			m21 = 2.0f * ((qy * qz) - (qx * qw));
+			m22 = 1.0f - 2.0f * ((qx * qx) + (qy * qy));
+
+			return *this;
+		}
+
+		/** Set to a rotation matrix */
+		constexpr Matrix3& SetRotation(const Vector3<IntType>& axis, IntType angle)
+		{
+			return SetRotation(Quaternion(axis, angle));
+		}
+
+		/** Set to a rotation matrix */
+		constexpr Matrix3& SetRotation(const Vector3<IntType>& euler)
+		{
+			return SetRotation(Quaternion(euler));
+		}
+
+		/** Set to a scale matrix */
+		constexpr Matrix3& SetScale(const Vector3<IntType>& scale)
+		{
+			m00 = scale.x;	m01 = 0;		m02 = 0;
+			m10 = 0;		m11 = scale.y;	m12 = 0;
+			m20 = 0;		m21 = 0;		m22 = scale.z;
+			return *this;
+		}
+
 		/** Transpose this matrix */
 		constexpr Matrix3& Transpose()
 		{
@@ -83,6 +145,34 @@ namespace Quartz
 			result.m00 = m00; result.m01 = m10; result.m02 = m20;
 			result.m10 = m01; result.m11 = m11; result.m12 = m21;
 			result.m20 = m02; result.m21 = m12; result.m22 = m22;
+			return result;
+		}
+
+		/** Get the IntType determinant */
+		constexpr IntType Determinant() const
+		{
+			return -m02 * m11 * m20 + m01 * m12 * m20 + m20 * m10 * m21 - m00 * m12 * m21 - m10 * m10 * m22 + m00 * m11 * m22;
+		}
+
+		/** Get the inverse of the matrix */
+		constexpr Matrix3 Inverse() const
+		{
+			Matrix3 result;
+
+			IntType det = -Determinant();
+
+			result.m00 =  (m12 * m21 - m11 * m22) / det;
+			result.m01 = -(m02 * m21 + m01 * m22) / det;
+			result.m02 =  (m02 * m11 - m01 * m12) / det;
+
+			result.m10 = -(m12 * m20 + m10 * m22) / det;
+			result.m11 =  (m02 * m20 - m00 * m22) / det;
+			result.m12 = -(m02 * m10 + m00 * m12) / det;
+
+			result.m20 =  (m11 * m20 - m10 * m21) / det;
+			result.m21 = -(m01 * m20 + m00 * m21) / det;
+			result.m22 =  (m01 * m10 - m00 * m11) / det;
+
 			return result;
 		}
 
@@ -105,10 +195,6 @@ namespace Quartz
 			result.m02 = m02 / col3.x;
 			result.m12 = m12 / col3.y;
 			result.m22 = m22 / col3.z;
-
-			result.m03 = m03 / col4.x;
-			result.m13 = m13 / col4.y;
-			result.m23 = m23 / col4.z;
 
 			return result;
 		}
@@ -133,17 +219,14 @@ namespace Quartz
 			result.m00 = m00 * mat3.m00 + m01 * mat3.m10 + m02 * mat3.m20;
 			result.m01 = m00 * mat3.m01 + m01 * mat3.m11 + m02 * mat3.m21;
 			result.m02 = m00 * mat3.m02 + m01 * mat3.m12 + m02 * mat3.m22;
-			result.m03 = m00 * mat3.m03 + m01 * mat3.m13 + m02 * mat3.m23;
 
 			result.m10 = m10 * mat3.m00 + m11 * mat3.m10 + m12 * mat3.m20;
 			result.m11 = m10 * mat3.m01 + m11 * mat3.m11 + m12 * mat3.m21;
 			result.m12 = m10 * mat3.m02 + m11 * mat3.m12 + m12 * mat3.m22;
-			result.m13 = m10 * mat3.m03 + m11 * mat3.m13 + m12 * mat3.m23;
 
 			result.m20 = m20 * mat3.m00 + m21 * mat3.m10 + m22 * mat3.m20;
 			result.m21 = m20 * mat3.m01 + m21 * mat3.m11 + m22 * mat3.m21;
 			result.m22 = m20 * mat3.m02 + m21 * mat3.m12 + m22 * mat3.m22;
-			result.m23 = m20 * mat3.m03 + m21 * mat3.m13 + m22 * mat3.m23;
 
 			return result;
 		}
@@ -154,14 +237,14 @@ namespace Quartz
 			*this = this * mat3;
 		}
 
-		/** Multiply a Vector4<IntType> to this */
-		constexpr Vector4<IntType> operator*(const Vector4<IntType>& vec4) const
+		/** Multiply a Vector3<IntType> to this */
+		constexpr Vector3<IntType> operator*(const Vector3<IntType>& vec3) const
 		{
-			Vector4<IntType> result;
+			Vector3<IntType> result;
 
-			result.x = m00 * vec4.x + m10 * vec4.y + m20 * vec4.z;
-			result.y = m01 * vec4.x + m11 * vec4.y + m21 * vec4.z;
-			result.z = m02 * vec4.x + m12 * vec4.y + m22 * vec4.z;
+			result.x = m00 * vec3.x + m10 * vec3.y + m20 * vec3.z;
+			result.y = m01 * vec3.x + m11 * vec3.y + m21 * vec3.z;
+			result.z = m02 * vec3.x + m12 * vec3.y + m22 * vec3.z;
 
 			return result;
 		}
@@ -285,6 +368,26 @@ namespace Quartz
 			m10 = 0; m11 = 1; m12 = 0; m13 = 0;
 			m20 = 0; m21 = 0; m22 = 1; m23 = 0;
 			m30 = 0; m31 = 0; m32 = 0; m33 = 1;
+			return *this;
+		}
+
+		/** Set to the identity matrix */
+		constexpr Matrix4& SetIdentity(IntType value)
+		{
+			m00 = value; m01 = 0; m02 = 0; m03 = 0;
+			m10 = 0; m11 = value; m12 = 0; m13 = 0;
+			m20 = 0; m21 = 0; m22 = value; m23 = 0;
+			m30 = 0; m31 = 0; m32 = 0; m33 = value;
+			return *this;
+		}
+
+		/** Set to the identity matrix */
+		constexpr Matrix4& SetIdentity(const Vec4f& vec4)
+		{
+			m00 = vec4.x; m01 = 0; m02 = 0; m03 = 0;
+			m10 = 0; m11 = vec4.y; m12 = 0; m13 = 0;
+			m20 = 0; m21 = 0; m22 = vec4.z; m23 = 0;
+			m30 = 0; m31 = 0; m32 = 0; m33 = vec4.w;
 			return *this;
 		}
 
@@ -421,7 +524,7 @@ namespace Quartz
 			return result;
 		}
 
-		/** Get the IntTypeing-point determinant */
+		/** Get the IntType determinant */
 		constexpr IntType Determinant() const
 		{
 			return	

@@ -172,7 +172,7 @@ namespace Quartz
 		constexpr Vector3<IntType> operator*(const Vector3<IntType>& vec3) const
 		{
 			Vector3<IntType> quatVec(x, y, z);
-			return 2.0 * Dot(quatVec, vec3) * quatVec +
+			return 2.0f * Dot(quatVec, vec3) * quatVec +
 				(w * w - Dot(quatVec, quatVec)) * vec3 +
 				2.0f * w * Cross(quatVec, vec3);
 		}

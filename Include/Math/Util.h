@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Types.h"
+#include <math.h>
 
 #define QMATH_USE_FAST_SQRT_2ND_PASS 0
 
@@ -104,6 +105,24 @@ namespace Quartz
 	inline const Type& Max(const Type& a, const Type& b)
 	{
 		return a > b ? a : b;
+	};
+
+	template<typename Type>
+	inline const Type& Abs(const Type& value)
+	{
+		return (value >= 0) ? value : -value;
+	};
+
+	template<>
+	inline const float& Abs(const float& value)
+	{
+		return fabsf(value);
+	};
+
+	template<>
+	inline const double& Abs(const double& value)
+	{
+		return fabs(value);
 	};
 
 	inline float ToRadians(float degrees)

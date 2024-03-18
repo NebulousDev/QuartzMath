@@ -1,6 +1,6 @@
 #pragma once
 
-#include "vector.h"
+#include "Vector.h"
 #include "Quaternion.h"
 #include "Matrix.h"
 
@@ -13,9 +13,9 @@ namespace Quartz
 		Vec3f scale;
 
 		inline Transform() :
-			position({ 0.0f, 0.0f, 0.0f }),
-			rotation(Quatf().SetEuler({ 0.0f, 0.0f, 0.0f })),
-			scale({ 1.0f, 1.0f, 1.0f }) { }
+			position{ 0.0f, 0.0f, 0.0f },
+			rotation{ 0.0f, 0.0f, 0.0f, 1.0f },
+			scale{ 1.0f, 1.0f, 1.0f } { }
 
 		inline Transform(const Vec3f& position, const Quatf& rotation, const Vec3f& scale) :
 			position(position),
