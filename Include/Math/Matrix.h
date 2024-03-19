@@ -132,6 +132,15 @@ namespace Quartz
 			return *this;
 		}
 
+		/** Set to a cross product matrix */
+		constexpr Matrix3& SetCross(const Vector3<IntType>& vec3)
+		{
+			m00 = 0;		m01 = -vec3.z;	m02 = vec3.y;
+			m10 = vec3.z;	m11 = 0;		m12 = -vec3.x;
+			m20 = -vec3.y;	m21 = vec3.x;	m22 = 0;
+			return *this;
+		}
+
 		/** Transpose this matrix */
 		constexpr Matrix3& Transpose()
 		{
