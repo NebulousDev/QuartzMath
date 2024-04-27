@@ -39,6 +39,10 @@ namespace Quartz
 		constexpr Vector2(const Vector2& vec2)
 			: x(vec2.x), y(vec2.y) { }
 
+		template<typename OIntType>
+		constexpr Vector2(const Vector2<OIntType>& vec2)
+			: x(vec2.x), y(vec2.y) { }
+
 		/** Set component values */
 		constexpr Vector2& Set(IntType x, IntType y)
 		{
@@ -311,10 +315,18 @@ namespace Quartz
 		constexpr Vector3(IntType x, IntType y, IntType z)
 			: x(x), y(y), z(z) { }
 
+		template<typename OIntType>
+		constexpr Vector3(const Vector2<OIntType>& vec2, float z)
+			: x(vec2.x), y(vec2.y), z(z) { }
+
 		constexpr Vector3(const Vector2<IntType>& vec2, float z)
 			: x(vec2.x), y(vec2.y), z(z) { }
 
-		constexpr Vector3(const Vector3& vec3)
+		template<typename OIntType>
+		constexpr Vector3(const Vector3<OIntType>& vec3)
+			: x(vec3.x), y(vec3.y), z(vec3.z) { }
+
+		constexpr Vector3(const Vector3<IntType>& vec3)
 			: x(vec3.x), y(vec3.y), z(vec3.z) { }
 
 		/** Set component values */
@@ -334,13 +346,13 @@ namespace Quartz
 		}
 
 		/** Get the magnitude of this vector */
-		IntType Magnitude() const
+		constexpr IntType Magnitude() const
 		{
 			return 1.0f / FastInvsereSquare(MagnitudeSquared());
 		}
 
 		/** Get the magnitude of this vector */
-		IntType InverseMagnitude() const
+		constexpr IntType InverseMagnitude() const
 		{
 			return FastInvsereSquare(MagnitudeSquared());
 		}
@@ -352,7 +364,7 @@ namespace Quartz
 		}
 
 		/** Normalize this vector */
-		Vector3& Normalize()
+		constexpr Vector3& Normalize()
 		{
 			IntType inverse = InverseMagnitude();
 			this->x *= inverse;
@@ -362,7 +374,7 @@ namespace Quartz
 		}
 
 		/** Get the normalized vector */
-		Vector3 Normalized() const
+		constexpr Vector3 Normalized() const
 		{
 			Vector3 result;
 			IntType inverse = InverseMagnitude();
@@ -373,9 +385,33 @@ namespace Quartz
 		}
 
 		/* Get the value of the maximum axis */
-		float Maximum() const
+		constexpr IntType Maximum() const
 		{
 			return x > y ? (x > z ? x : z) : (y > z ? y : z);
+		}
+
+		/* Get the sum of all elements */
+		constexpr IntType Sum() const
+		{
+			return x + y + z;
+		}
+
+		/* Return true if all elements are the same value */
+		constexpr bool IsEqual() const
+		{
+			return x == y && y == z;
+		}
+
+		/* Return true if all elements are zero */
+		constexpr bool IsZero() const
+		{
+			return x == 0 && y == 0 && z == 0;
+		}
+
+		/* Return true if all elements are near zero */
+		constexpr bool IsNearZero(IntType delta = (double)0.000001) const
+		{
+			return Abs(x) <= delta && Abs(y) <= delta && Abs(z) <= delta;
 		}
 
 		/** Get the dot product of two vectors */
@@ -390,7 +426,13 @@ namespace Quartz
 			IntType x = veca.y * vecb.z - veca.z * vecb.y;
 			IntType y = veca.z * vecb.x - veca.x * vecb.z;
 			IntType z = veca.x * vecb.y - veca.y * vecb.x;
-			return Vector3(-x, -y, -z);
+			return Vector3(x, y, z);
+		}
+
+		/** Get the cross product of two vectors with inverted input */
+		constexpr friend Vector3 CrossInv(const Vector3& veca, const Vector3& vecb)
+		{
+			return Cross(vecb, veca);
 		}
 
 		/** Get a component by index */
@@ -540,16 +582,6 @@ namespace Quartz
 		constexpr Vector2<IntType> xy() const
 		{
 			return Vector2<IntType>(x, y);
-		}
-
-		constexpr bool IsZero() const
-		{
-			return x == 0 && y == 0 && z == 0;
-		}
-
-		constexpr bool IsNearZero(IntType delta = (double)0.000001) const
-		{
-			return x <= delta && y <= delta && z <= delta;
 		}
 	};
 

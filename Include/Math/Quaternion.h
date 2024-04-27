@@ -37,10 +37,16 @@ namespace Quartz
 		}
 
 		/** Construct a Quaternion from euler angles */
-		constexpr Quaternion(const Vector3<IntType>& euler)
+		template<typename OIntType>
+		constexpr Quaternion(const Vector3<OIntType>& euler)
 		{
-			SetEuler(euler);
+			SetEuler(Vector3<IntType>(euler));
 		}
+
+		/** Construct a Quaternion from another Quaternion*/
+		template<typename OIntType>
+		constexpr Quaternion(const Quaternion<OIntType> quat)
+			: x(quat.x), y(quat.y), z(quat.z), w(quat.w) {}
 
 		/** Construct a Quaternion from values */
 		constexpr Quaternion(IntType x, IntType y, IntType z, IntType w)
@@ -142,7 +148,7 @@ namespace Quartz
 		}
 
 		/** Get the inverse of the quaternion */
-		Quaternion Inverse() const
+		constexpr Quaternion Inverse() const
 		{
 			IntType mag = Magnitude();
 			IntType rx = -x / mag;
@@ -174,7 +180,7 @@ namespace Quartz
 			Vector3<IntType> quatVec(x, y, z);
 			return 2.0f * Dot(quatVec, vec3) * quatVec +
 				(w * w - Dot(quatVec, quatVec)) * vec3 +
-				2.0f * w * Cross(quatVec, vec3);
+				2.0f * w * -Cross(quatVec, vec3);		// @TODO: Why does Cross need to be negative??
 		}
 
 		/** Multiply a Vector3<IntType> by a quaternion */

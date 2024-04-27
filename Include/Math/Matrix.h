@@ -55,7 +55,7 @@ namespace Quartz
 		/** Set to the identity matrix */
 		constexpr Matrix3& SetZero()
 		{
-			for (int i = 0; i < 9; i++)
+			for (uSize i = 0; i < 9; i++)
 				e[i] = 0.0f;
 
 			return *this;
@@ -141,6 +141,24 @@ namespace Quartz
 			return *this;
 		}
 
+		/** Set row vectors */
+		constexpr Matrix3& SetRows(const Vector3<IntType>& vecA, const Vector3<IntType>& vecB, const Vector3<IntType>& vecC)
+		{
+			this->m00 = vecA.x; this->m01 = vecA.y; this->m02 = vecA.z;
+			this->m10 = vecB.x; this->m11 = vecB.y; this->m12 = vecB.z;
+			this->m20 = vecC.x; this->m21 = vecC.y; this->m22 = vecC.z;
+			return *this;
+		}
+
+		/** Set column vectors */
+		constexpr Matrix3& SetColumns(const Vector3<IntType>& vecA, const Vector3<IntType>& vecB, const Vector3<IntType>& vecC)
+		{
+			this->m00 = vecA.x; this->m01 = vecB.x; this->m02 = vecC.x;
+			this->m10 = vecA.y; this->m11 = vecB.y; this->m12 = vecC.y;
+			this->m20 = vecA.z; this->m21 = vecB.z; this->m22 = vecC.z;
+			return *this;
+		}
+
 		/** Transpose this matrix */
 		constexpr Matrix3& Transpose()
 		{
@@ -209,13 +227,13 @@ namespace Quartz
 		}
 
 		/** Get a component by index */
-		constexpr IntType& operator[](int index)
+		constexpr IntType& operator[](uSize index)
 		{
 			return e[index];
 		}
 
 		/** Get a component by index */
-		constexpr IntType operator[](int index) const
+		constexpr IntType operator[](uSize index) const
 		{
 			return e[index];
 		}
@@ -262,7 +280,7 @@ namespace Quartz
 		constexpr Matrix3 operator*(IntType value) const
 		{
 			Matrix3 result;
-			for (int i = 0; i < 9; i++)
+			for (uSize i = 0; i < 9; i++)
 				result.e[i] = e[i] * value;
 			return result;
 		}
@@ -276,16 +294,16 @@ namespace Quartz
 		/** Multiply a IntType to this */
 		constexpr void operator*=(IntType value)
 		{
-			for (int i = 0; i < 9; i++)
+			for (uSize i = 0; i < 9; i++)
 				e[i] = e[i] * value;
 		}
 
 		/** Check if two matrices are equal */
 		constexpr bool operator==(const Matrix3& mat3) const
 		{
-			for (int row = 0; row < 3; row++)
+			for (uSize row = 0; row < 3; row++)
 			{
-				for (int col = 0; col < 3; col++)
+				for (uSize col = 0; col < 3; col++)
 				{
 					if (m[row][col] != mat3.m[row][col])
 					{
@@ -337,6 +355,16 @@ namespace Quartz
 		/** Construct an uninitialized Matrix4 */
 		constexpr Matrix4() {};
 
+		/** Construct a Matrix4 from another Matrix4 */
+		template<typename OIntType>
+		constexpr Matrix4(const Matrix4<OIntType>& mat4)
+		{
+			for (uSize i = 0; i < 16; i++)
+			{
+				e[i] = mat4.e[i];
+			}
+		};
+
 		/** Construct a Matrix4 from values */
 		constexpr Matrix4(
 			IntType m00, IntType m01, IntType m02, IntType m03,
@@ -364,7 +392,7 @@ namespace Quartz
 		/** Set to the identity matrix */
 		constexpr Matrix4& SetZero()
 		{
-			for (int i = 0; i < 16; i++)
+			for (uSize i = 0; i < 16; i++)
 				e[i] = 0.0f;
 
 			return *this;
@@ -701,13 +729,13 @@ namespace Quartz
 		}
 
 		/** Get a component by index */
-		constexpr IntType& operator[](int index)
+		constexpr IntType& operator[](uSize index)
 		{
 			return e[index];
 		}
 
 		/** Get a component by index */
-		constexpr IntType operator[](int index) const
+		constexpr IntType operator[](uSize index) const
 		{
 			return e[index];
 		}
@@ -770,7 +798,7 @@ namespace Quartz
 		constexpr Matrix4 operator*(IntType value) const
 		{
 			Matrix4 result;
-			for (int i = 0; i < 16; i++)
+			for (uSize i = 0; i < 16; i++)
 				result.e[i] = e[i] * value;
 			return result;
 		}
@@ -784,16 +812,16 @@ namespace Quartz
 		/** Multiply a IntType to this */
 		constexpr void operator*=(IntType value)
 		{
-			for (int i = 0; i < 16; i++)
+			for (uSize i = 0; i < 16; i++)
 				e[i] = e[i] * value;
 		}
 
 		/** Check if two matrices are equal */
 		constexpr bool operator==(const Matrix4& mat4) const
 		{
-			for (int row = 0; row < 4; row++)
+			for (uSize row = 0; row < 4; row++)
 			{
-				for (int col = 0; col < 4; col++)
+				for (uSize col = 0; col < 4; col++)
 				{
 					if (m[row][col] != mat4.m[row][col])
 					{

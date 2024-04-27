@@ -22,6 +22,30 @@ namespace Quartz
 			rotation(rotation),
 			scale(scale) { }
 
+		inline Transform& Move(const Vec3f& movement)
+		{
+			this->position += movement;
+			return *this;
+		}
+
+		inline Transform& Rotate(const Quatf& rotation)
+		{
+			this->rotation *= rotation;
+			return *this;
+		}
+
+		inline Transform& Rotate(const Vec3f& axis, float angle)
+		{
+			this->rotation *= Quatf(axis, angle);
+			return *this;
+		}
+
+		inline Transform& Rotate(const Vec3f& euler)
+		{
+			this->rotation *= Quatf(euler);
+			return *this;
+		}
+
 		inline Vec3f GetForward() const
 		{
 			return rotation * Vec3f(0.0f, 0.0f, 1.0f);

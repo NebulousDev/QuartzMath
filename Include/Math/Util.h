@@ -3,7 +3,7 @@
 #include "Types.h"
 #include <math.h>
 
-#define QMATH_USE_FAST_SQRT_2ND_PASS 0
+#define QMATH_USE_FAST_SQRT_2ND_PASS 1
 
 namespace Quartz
 {
@@ -150,19 +150,42 @@ namespace Quartz
 		return (b - a) * (3.0f - t * 2.0f) * t * t + a;
 	}
 
-	inline float Smoothstep(float a, float b, float t)
+	template<typename IntType>
+	inline IntType Clamp(const IntType& a, const IntType& b, const IntType& x)
 	{
-		t = t * t * (3.0 - 2.0 * t);
-		return (b - a) * t + a;
+		return x < a ? a : (x > b ? b : x);
+	}
+
+	template<typename IntType>
+	inline IntType Fade(const IntType& t)
+	{
+		return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
+	}
+
+	template<typename IntType>
+	inline IntType FadeDeriv(const IntType& t)
+	{
+		return 30.0 * t * t * (t * (t - 2.0) + 1.0);
+	}
+
+	template<typename IntType>
+	inline IntType Smoothstep(const IntType& a, const IntType& b, const IntType& t)
+	{
+		//const float ct = Clamp(a, b, (t - a) / (b - a));
+		const float ct = Clamp(0.0f, 1.0f, (t - a) / (b - a));
+		return ct * ct * (3.0 - 2.0 * ct);
+	}
+
+	template<typename IntType>
+	inline IntType Smootherstep(const IntType& a, const IntType& b, const IntType& t)
+	{
+		//const float ct = Clamp(a, b, (t - a) / (b - a));
+		const float ct = Clamp(0.0f, 1.0f, (t - a) / (b - a));
+		return Fade(ct);
 	}
 
 	inline float Parabola(float a, float h, float k, float t)
 	{
 		return a * (t - h) * (t - h) + k;
-	}
-
-	inline float Fade(float t)
-	{
-		return t * t * t * (t * (t * 6.0 - 15.0) + 10.0);
 	}
 }
