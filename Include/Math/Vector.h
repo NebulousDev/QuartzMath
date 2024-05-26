@@ -631,8 +631,8 @@ namespace Quartz
 			: x(fill), y(fill), z(fill), w(fill) { }
 
 		/** Construct a Vector4 from values */
-		constexpr Vector4(IntType x, IntType y, IntType z)
-			: x(x), y(y), z(z) { }
+		constexpr Vector4(IntType x, IntType y, IntType z, IntType w)
+			: x(x), y(y), z(z), w(w) { }
 
 		constexpr Vector4(const Vector2<IntType>& vec2, float z, float w)
 			: x(vec2.x), y(vec2.y), z(z), w(w) { }
